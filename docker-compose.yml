@@ -1,0 +1,6 @@
+services:
+  hemovida.api:
+    image: ${DOCKER_REGISTRY-}hemovidaapi
+    build:
+      context: .
+      dockerfile: HemoVida.API/Dockerfile
