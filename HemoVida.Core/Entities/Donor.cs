@@ -1,5 +1,8 @@
-﻿namespace HemoVida.Core.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace HemoVida.Core.Entities;
+
+[Table("tb_Donor")]
 public class Donor : BaseEntity
 {
     public int UserId { get; set; }

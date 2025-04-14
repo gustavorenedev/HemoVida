@@ -1,5 +1,8 @@
-﻿namespace HemoVida.Core.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace HemoVida.Core.Entities;
+
+[Table("tb_Address")]
 public class Address : BaseEntity
 {
     public Address(Donor donor, string street, string city, string state, string zipCode)

@@ -1,5 +1,8 @@
-﻿namespace HemoVida.Core.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace HemoVida.Core.Entities;
+
+[Table("tb_Stock")]
 public class Stock : BaseEntity
 {
     public Stock(string typeBlood, string rhFactor, double mlQuantity)
