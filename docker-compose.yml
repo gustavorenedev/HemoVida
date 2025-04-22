@@ -4,18 +4,17 @@ services:
     build:
       context: .
       dockerfile: HemoVida.API/Dockerfile
-    depends_on:
-      - sqlserver
-  
-  sqlserver:
+
+  hemovida.sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    hostname: 'sqlserver'
+    container_name: hemovida_sqlserver
     environment:
-      ACCEPT_EULA: 'Y'
-      SA_PASSWORD: "Numsey#2024"
-    volumes:
-      - c:\dados\volumes\mssql:/var/opt/mssql3
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
     ports:
-      - '11433:1433'
-    expose:
-      - 1433
+      - "1433:1433"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
+volumes:
+  sqlserverdata:

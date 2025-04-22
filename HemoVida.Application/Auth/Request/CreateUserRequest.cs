@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HemoVida.Core.Enum;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace HemoVida.Application.Auth.Request;
 
@@ -14,4 +16,6 @@ public class CreateUserRequest
     public string? Password { get; set; }
     [Required]
     public string? ConfirmPassword { get; set; }
+    [JsonIgnore]
+    public Role Role { get; set; } = Role.User;
 }

@@ -8,7 +8,7 @@ public class HemoVidaDbContext : DbContext
 {
     public HemoVidaDbContext(DbContextOptions<HemoVidaDbContext> options) : base(options)
     {
-
+        this.Database.EnsureCreated();
     }
 
     public DbSet<Address> Addresses { get; set; }

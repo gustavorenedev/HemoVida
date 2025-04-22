@@ -66,7 +66,11 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddDbContext<HemoVidaDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("SqlConnection"),
+        sqlOptions => sqlOptions.EnableRetryOnFailure()
+    )
+);
 
 builder.Services.AddInfrastructure();
 

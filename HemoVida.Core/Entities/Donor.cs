@@ -2,7 +2,7 @@
 
 namespace HemoVida.Core.Entities;
 
-[Table("tb_Donor")]
+[Table("tb_donor")]
 public class Donor : BaseEntity
 {
     public int UserId { get; set; }

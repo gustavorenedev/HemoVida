@@ -10,7 +10,7 @@ public class StockConfiguration : IEntityTypeConfiguration<Stock>
     {
         builder.HasKey(s => s.Id);
 
-        builder.Property(s => s.TypeBlood).IsRequired().HasMaxLength(3);
+        builder.Property(s => s.BloodType).IsRequired().HasMaxLength(3);
         builder.Property(s => s.RhFactor).IsRequired();
         builder.Property(s => s.MlQuantity).IsRequired();
     }

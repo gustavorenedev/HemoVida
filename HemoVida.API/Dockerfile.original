@@ -13,9 +13,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["HemoVida.API/HemoVida.API.csproj", "HemoVida.API/"]
-COPY ["HemoVida.Application/HemoVida.Application.csproj", "HemoVida.Application/"]
-COPY ["HemoVida.Core/HemoVida.Core.csproj", "HemoVida.Core/"]
-COPY ["HemoVida.Infrastructure/HemoVida.Infrastructure.csproj", "HemoVida.Infrastructure/"]
 RUN dotnet restore "./HemoVida.API/HemoVida.API.csproj"
 COPY . .
 WORKDIR "/src/HemoVida.API"
