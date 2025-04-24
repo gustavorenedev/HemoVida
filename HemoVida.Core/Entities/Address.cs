@@ -5,6 +5,7 @@ namespace HemoVida.Core.Entities;
 [Table("tb_address")]
 public class Address : BaseEntity
 {
+    public int DonorId { get; set; }
     public Donor Donor { get; set; }
     public string Street { get; set; }
     public string City { get; set; }

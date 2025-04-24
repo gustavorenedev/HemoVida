@@ -17,6 +17,6 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
 
         builder.HasOne(a => a.Donor)
             .WithOne(d => d.Address)
-            .HasForeignKey<Address>(a => a.Id);
+            .HasForeignKey<Address>(a => a.DonorId);
     }
 }

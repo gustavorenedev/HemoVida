@@ -12,5 +12,5 @@ public class Donor : BaseEntity
     public string BloodType { get; set; }
     public string RhFactor { get; set; }
     public Address Address { get; set; }
-    public List<Donation> Donations { get; set; }
+    public List<Donation>? Donations { get; set; }
 }

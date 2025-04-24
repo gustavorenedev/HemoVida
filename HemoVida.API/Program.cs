@@ -1,3 +1,6 @@
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using HemoVida.Application.Donor.Request;
 using HemoVida.Infrastructure.Configuration;
 using HemoVida.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -72,6 +75,8 @@ builder.Services.AddDbContext<HemoVidaDbContext>(options =>
     )
 );
 
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateDonorRequestValidator>();
 builder.Services.AddInfrastructure();
 
 var app = builder.Build();
