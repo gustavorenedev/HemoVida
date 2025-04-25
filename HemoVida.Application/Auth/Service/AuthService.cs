@@ -2,7 +2,7 @@
 using HemoVida.Application.Auth.Request;
 using HemoVida.Application.Auth.Response;
 using HemoVida.Application.Auth.Service.Interfaces;
-using HemoVida.Infrastructure.Repositories.Interfaces;
+using HemoVida.Core.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

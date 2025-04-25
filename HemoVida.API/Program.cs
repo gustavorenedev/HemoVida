@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,11 +69,18 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// SqlServer Configuration
 builder.Services.AddDbContext<HemoVidaDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("SqlConnection"),
         sqlOptions => sqlOptions.EnableRetryOnFailure()
     )
+);
+
+// Redis Configuration 
+var redisString = builder.Configuration.GetConnectionString("RedisConnection");
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+    ConnectionMultiplexer.Connect(redisString)
 );
 
 builder.Services.AddFluentValidationAutoValidation();

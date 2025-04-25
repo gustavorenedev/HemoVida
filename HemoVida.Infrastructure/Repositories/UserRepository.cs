@@ -1,6 +1,6 @@
 ﻿using HemoVida.Core.Entities;
+using HemoVida.Core.Interfaces.Repositories;
 using HemoVida.Infrastructure.Persistence;
-using HemoVida.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace HemoVida.Infrastructure.Repositories;

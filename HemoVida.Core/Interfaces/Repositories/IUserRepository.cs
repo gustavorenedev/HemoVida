@@ -1,6 +1,6 @@
 ﻿using HemoVida.Core.Entities;
 
-namespace HemoVida.Infrastructure.Repositories.Interfaces;
+namespace HemoVida.Core.Interfaces.Repositories;
 
 public interface IUserRepository
 {

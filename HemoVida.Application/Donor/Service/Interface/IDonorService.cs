@@ -6,4 +6,5 @@ namespace HemoVida.Application.Donor.Service.Interface;
 public interface IDonorService
 {
     Task<CreateDonorResponse> RegisterDonor(CreateDonorRequest request);
+    Task<List<GetAvailableDonorsResponse>> GetAvailableDonors();
 }

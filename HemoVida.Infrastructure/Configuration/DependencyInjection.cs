@@ -5,9 +5,10 @@ using HemoVida.Application.Donor.Service;
 using HemoVida.Application.Donor.Service.Interface;
 using HemoVida.Application.ZipCode.Service;
 using HemoVida.Application.ZipCode.Service.Interface;
-using HemoVida.Core.Interfaces;
+using HemoVida.Core.Interfaces.Repositories;
+using HemoVida.Core.Interfaces.Service;
+using HemoVida.Infrastructure.Redis;
 using HemoVida.Infrastructure.Repositories;
-using HemoVida.Infrastructure.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HemoVida.Infrastructure.Configuration;
@@ -23,6 +24,7 @@ public static class DependencyInjection
         // Application Services
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IDonorService, DonorService>();
+        services.AddScoped<IRedisService, RedisService>();
         services.AddHttpClient<IZipCodeService, ZipCodeService>();
 
         // AutoMapper

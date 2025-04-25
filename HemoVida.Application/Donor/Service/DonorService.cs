@@ -4,8 +4,8 @@ using HemoVida.Application.Donor.Response;
 using HemoVida.Application.Donor.Service.Interface;
 using HemoVida.Application.ZipCode.Service.Interface;
 using HemoVida.Core.Entities;
-using HemoVida.Core.Interfaces;
-using HemoVida.Infrastructure.Repositories.Interfaces;
+using HemoVida.Core.Interfaces.Repositories;
+using HemoVida.Core.Interfaces.Service;
 
 namespace HemoVida.Application.Donor.Service;
 
@@ -15,14 +15,26 @@ public class DonorService : IDonorService
     private readonly IDonorRepository _donorRepository;
     private readonly IUserRepository _userRepository;
     private readonly IZipCodeService _zipCodeService;
+    private readonly IRedisService _redisService;
     private readonly IMapper _mapper;
 
-    public DonorService(IDonorRepository donorRepository, IUserRepository userRepository, IZipCodeService zipCodeService, IMapper mapper)
+    public DonorService(IDonorRepository donorRepository, IUserRepository userRepository, IZipCodeService zipCodeService, IMapper mapper, IRedisService redisService)
     {
         _donorRepository = donorRepository;
         _userRepository = userRepository;
         _zipCodeService = zipCodeService;
         _mapper = mapper;
+        _redisService = redisService;
+    }
+
+    public async Task<List<GetAvailableDonorsResponse>> GetAvailableDonors()
+    {
+        var result = await _redisService.GetAvailableDonorsAsync();
+
+        if (result == null || result.Count == 0)
+            return null;
+
+        return _mapper.Map<List<GetAvailableDonorsResponse>>(result);
     }
 
     public async Task<CreateDonorResponse> RegisterDonor(CreateDonorRequest request)
@@ -57,6 +69,8 @@ public class DonorService : IDonorService
         newDonor.Address = endereco;
 
         await _donorRepository.UpdateDonor(newDonor, newDonor.Id);
+
+        await _redisService.AddAvailableDonorAsync(newDonor);
 
         return new CreateDonorResponse { Message = "Doador cadastrado com sucesso. Aguarde a enfermeira chamar" };
     }
