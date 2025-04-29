@@ -1,0 +1,46 @@
+name: Docker Compose CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:20.10.16
+        options: --privileged
+        ports:
+          - 8080:8080
+          - 8081:8081
+          - 1433:1433
+          - 6379:6379
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build e up com Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up -d --build
+
+      - name: Aguardar serviços iniciarem
+        run: sleep 30
+
+      - name: Verificar containers em execução
+        run: docker ps
+
+      - name: Testar resposta da API (porta 8080)
+        run: |
+          curl --fail http://localhost:8080 || exit 1
+
+      - name: Derrubar containers
+        if: always()
+        run: docker-compose down
