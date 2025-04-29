@@ -24,9 +24,9 @@ jobs:
         run: dotnet test --no-build --configuration Release --verbosity normal HemoVida.API/HemoVida.API.csproj
 
       - name: Análise com SonarCloud
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
-          projectBaseDir: .
+          projectBaseDir: ./src
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
