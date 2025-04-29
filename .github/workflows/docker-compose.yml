@@ -18,7 +18,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build e up com Docker Compose
-        run: docker compose -f docker-compose/docker-compose.yml up -d --build
+        run: docker compose -f docker-compose.yml up -d --build
 
       - name: Aguardar serviços iniciarem
         run: sleep 30
@@ -32,4 +32,4 @@ jobs:
 
       - name: Derrubar containers
         if: always()
-        run: docker compose -f docker-compose/docker-compose.yml down
+        run: docker compose -f docker-compose.yml down
