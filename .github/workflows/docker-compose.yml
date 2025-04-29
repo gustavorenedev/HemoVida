@@ -26,9 +26,9 @@ jobs:
       - name: Verificar containers em execução
         run: docker ps
 
-      - name: Testar resposta da API (porta 8080)
+      - name: Testar resposta da API (porta 8081)
         run: |
-          curl --fail http://localhost:8080 || exit 1
+          curl --insecure --fail https://localhost:8081 || exit 1
 
       - name: Derrubar containers
         if: always()
