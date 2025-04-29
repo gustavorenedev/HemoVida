@@ -26,7 +26,7 @@ jobs:
       - name: Análise com SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
-          projectBaseDir: ./src
+          projectBaseDir: src
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
