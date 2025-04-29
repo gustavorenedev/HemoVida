@@ -60,6 +60,7 @@ public class DonorService : IDonorService
             Weight = request.Weight,
             BloodType = request.BloodType,
             RhFactor = request.RhFactor,
+            Gender = request.Gender
         };
 
         newDonor = await _donorRepository.CreateDonor(newDonor);

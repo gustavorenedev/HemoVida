@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using HemoVida.Core.Enum;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HemoVida.Core.Entities;
 
@@ -10,6 +11,7 @@ public class Donor : BaseEntity
     public DateTime BirthDate { get; set; }
     public double Weight { get; set; }
     public string BloodType { get; set; }
+    public Gender Gender { get; set; }
     public string RhFactor { get; set; }
     public Address Address { get; set; }
     public List<Donation>? Donations { get; set; }

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Configuration;
+using HemoVida.Core.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace HemoVida.Application.Donor.Request;
@@ -16,11 +16,13 @@ public class CreateDonorRequest
     public string RhFactor { get; set; }
     [Required(ErrorMessage = "Postal Code é obrigatório")]
     public string ZipCode { get; set; }
+    [Required(ErrorMessage = "Genêro é obrigatório")]
+    public Gender Gender { get; set; }
 }
 
 public class CreateDonorRequestValidator : AbstractValidator<CreateDonorRequest>
 {
-    public CreateDonorRequestValidator(IConfiguration configuration)
+    public CreateDonorRequestValidator()
     {
         RuleFor(x => x.BirthDate)
             .NotEmpty()

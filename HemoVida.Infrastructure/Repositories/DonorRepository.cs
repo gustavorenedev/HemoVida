@@ -26,6 +26,7 @@ public class DonorRepository : IDonorRepository
         var donor = await _context.Donors
         .Include(d => d.Address)
         .Include(d => d.User)
+        .Include(d => d.Donations)
         .FirstOrDefaultAsync(d => d.User.Email == email);
 
         return donor;
@@ -44,6 +45,7 @@ public class DonorRepository : IDonorRepository
         existingDonor.Weight = donor.Weight;
         existingDonor.BloodType = donor.BloodType;
         existingDonor.RhFactor = donor.RhFactor;
+        existingDonor.Gender = donor.Gender;
 
         if (existingDonor.Address == null)
         {
