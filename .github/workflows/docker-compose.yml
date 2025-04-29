@@ -14,17 +14,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Entrar na pasta HemoVida.API
-        run: cd HemoVida.API
-
       - name: Restaurar pacotes NuGet
-        run: dotnet restore HemoVida.API.csproj
+        run: dotnet restore src/HemoVida.API/HemoVida.API.csproj
 
       - name: Build da solução
-        run: dotnet build --no-restore --configuration Release HemoVida.API.csproj
+        run: dotnet build --no-restore --configuration Release src/HemoVida.API/HemoVida.API.csproj
 
       - name: Executar testes
-        run: dotnet test --no-build --configuration Release --verbosity normal HemoVida.API.csproj
+        run: dotnet test --no-build --configuration Release --verbosity normal src/HemoVida.API/HemoVida.API.csproj
 
       - name: Análise com SonarCloud
         uses: SonarSource/sonarcloud-github-action@master
