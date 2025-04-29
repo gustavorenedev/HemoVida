@@ -11,14 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Entrar na pasta HemoVida.API
+        run: cd HemoVida.API
+
       - name: Restaurar pacotes NuGet
-        run: dotnet restore
+        run: dotnet restore HemoVida.API.csproj
 
       - name: Build da solução
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build --no-restore --configuration Release HemoVida.API.csproj
 
       - name: Executar testes
-        run: dotnet test --no-build --configuration Release --verbosity normal
+        run: dotnet test --no-build --configuration Release --verbosity normal HemoVida.API.csproj
 
       - name: Análise com SonarCloud
         uses: SonarSource/sonarcloud-github-action@master
