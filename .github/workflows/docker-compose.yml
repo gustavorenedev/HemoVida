@@ -26,12 +26,12 @@ jobs:
       - name: Verificar se o sonar-project.properties existe
         run: |
           echo "Conteúdo do sonar-project.properties:"
-          cat HemoVida/src/sonar-project.properties || echo "Arquivo não encontrado"
+          cat HemoVida/sonar-project.properties || echo "Arquivo não encontrado"
 
       - name: Análise com SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
-          projectBaseDir: HemoVida/src
+          projectBaseDir: HemoVida
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
