@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HemoVida.Application", "Hem
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{966FDD36-3F81-462D-9E80-C3190F478CA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HemoVida.Tests", "..\HemoVida.Tests\HemoVida.Tests.csproj", "{CCD4B3E1-DB58-4A23-8593-C2BA30A5598B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{966FDD36-3F81-462D-9E80-C3190F478CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{966FDD36-3F81-462D-9E80-C3190F478CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{966FDD36-3F81-462D-9E80-C3190F478CA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCD4B3E1-DB58-4A23-8593-C2BA30A5598B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD4B3E1-DB58-4A23-8593-C2BA30A5598B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD4B3E1-DB58-4A23-8593-C2BA30A5598B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD4B3E1-DB58-4A23-8593-C2BA30A5598B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
