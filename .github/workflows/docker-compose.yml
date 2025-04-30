@@ -23,11 +23,6 @@ jobs:
       - name: Executar testes
         run: dotnet test --no-build --configuration Release --verbosity normal HemoVida.API/HemoVida.API.csproj
 
-      - name: Verificar se o sonar-project.properties existe
-        run: |
-          echo "Conteúdo do sonar-project.properties:"
-          cat ./sonar-project.properties || echo "Arquivo não encontrado"
-
       - name: Análise com SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5.0.0
         env:
