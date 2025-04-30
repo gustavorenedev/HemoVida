@@ -27,7 +27,7 @@ public class AuthService : IAuthService
     public async Task<string> LoginAsync(LoginUserRequest loginUserRequest)  
     {
         if (string.IsNullOrEmpty(loginUserRequest.Email) || string.IsNullOrEmpty(loginUserRequest.Password))
-            return null;
+            return null; 
 
         var user = await _userRepository.GetByEmailAsync(loginUserRequest.Email);
         if (user == null || !BCrypt.Net.BCrypt.Verify(loginUserRequest.Password, user.Password))
