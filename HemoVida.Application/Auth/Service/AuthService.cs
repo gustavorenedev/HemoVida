@@ -24,7 +24,7 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
 
-    public async Task<string> LoginAsync(LoginUserRequest loginUserRequest) 
+    public async Task<string> LoginAsync(LoginUserRequest loginUserRequest)  
     {
         if (string.IsNullOrEmpty(loginUserRequest.Email) || string.IsNullOrEmpty(loginUserRequest.Password))
             return null;
