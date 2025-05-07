@@ -60,6 +60,16 @@ public class DonationService : IDonationService
 
     private DonationRegisterResponse ValidateDonation(Core.Entities.Donor request)
     {
+        var age = CalculateAge(request.BirthDate);
+
+        if (age < 18)
+        {
+            return new DonationRegisterResponse
+            {
+                Message = "Menores de idade não podem doar."
+            };
+        }
+
         var lastDonation = request.Donations?.OrderByDescending(x => x.DonationDate).FirstOrDefault();
 
         if (lastDonation == null) return new DonationRegisterResponse
@@ -67,14 +77,8 @@ public class DonationService : IDonationService
             Message = "Você ainda não doou."
         };
 
-        var age = CalculateAge(request.BirthDate);
         var nextAllowedDonationDateWoman = lastDonation.DonationDate.AddDays(90);
         var nextAllowedDonationDateMan = lastDonation.DonationDate.AddDays(60);
-
-        if (age < 18) return new DonationRegisterResponse
-        {
-            Message = "Menores de idade não podem doar."
-        };
 
         if (request.Gender == Core.Enum.Gender.Woman && DateTime.Now < nextAllowedDonationDateWoman)
         {
