@@ -7,4 +7,6 @@ public interface IDonorService
 {
     Task<CreateDonorResponse> RegisterDonor(CreateDonorRequest request);
     Task<List<GetAvailableDonorsResponse>> GetAvailableDonors();
+    Task<GetDonationHistoryResponse> GetDonationHistory(string email);
+    Task<List<GetDonationHistoryResponse>> GetDonationHistory();
 }

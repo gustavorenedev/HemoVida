@@ -21,13 +21,24 @@ public class DonorRepository : IDonorRepository
         return donor;
     }
 
+    public async Task<List<Donor>> GetAllAsync()
+    {
+        var donors = await _context.Donors
+            .Include(d => d.Address)
+            .Include(d => d.User)
+            .Include(d => d.Donations)
+            .ToListAsync();
+
+        return donors;
+    }
+
     public async Task<Donor> GetByEmailAsync(string email)
     {
         var donor = await _context.Donors
-        .Include(d => d.Address)
-        .Include(d => d.User)
-        .Include(d => d.Donations)
-        .FirstOrDefaultAsync(d => d.User.Email == email);
+            .Include(d => d.Address)
+            .Include(d => d.User)
+            .Include(d => d.Donations)
+            .FirstOrDefaultAsync(d => d.User.Email == email);
 
         return donor;
     }

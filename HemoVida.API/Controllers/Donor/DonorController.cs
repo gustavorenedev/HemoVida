@@ -25,6 +25,22 @@ public class DonorController : ControllerBase
     }
 
     /// <summary>
+    /// Endpoint para mostrar os doadores disponíveis na clinica que ainda não doaram.
+    /// </summary>
+    /// <returns>Retorna os doadores disponíveis na clinica que ainda não doaram</returns>
+    /// <response code="200">Doadores retornados com sucesso.</response>
+    [HttpGet("GetAvailableDonors")]
+    [ProducesResponseType(typeof(List<GetAvailableDonorsResponse>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+
+    public async Task<IActionResult> GetAvailableDonors()
+    {
+        var response = await _donorService.GetAvailableDonors();
+
+        return Ok(response);
+    }
+
+    /// <summary>
     /// Endpoint para preencher informações de prancheta pré doação.
     /// </summary>
     /// <param name="donorRequest">Dados do doador a serem registrados.</param>
@@ -45,17 +61,33 @@ public class DonorController : ControllerBase
     }
 
     /// <summary>
-    /// Endpoint para mostrar os doadores disponíveis na clinica que ainda não doaram.
+    /// Endpoint para mostrar as doações feitas pelo doador.
     /// </summary>
-    /// <returns>Retorna os doadores disponíveis na clinica que ainda não doaram</returns>
+    /// <returns>Retorna as doações feitas pelo doador</returns>
     /// <response code="200">Doadores retornados com sucesso.</response>
-    [HttpGet("GetAvailableDonors")]
-    [ProducesResponseType(typeof(List<GetAvailableDonorsResponse>), (int)HttpStatusCode.OK)]
+    [HttpGet("GetDonationHistory")]
+    [ProducesResponseType(typeof(GetDonationHistoryResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
 
-    public async Task<IActionResult> GetAvailableDonors()
+    public async Task<IActionResult> GetDonationHistory(string email)
     {
-        var response = await _donorService.GetAvailableDonors();
+        var response = await _donorService.GetDonationHistory(email);
+
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// Endpoint para mostrar todas as doações feitas pelos doadores.
+    /// </summary>
+    /// <returns>Retorna as doações feitas pelos doadores</returns>
+    /// <response code="200">Doadores retornados com sucesso.</response>
+    [HttpGet("GetAllDonationHistory")]
+    [ProducesResponseType(typeof(List<GetDonationHistoryResponse>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+
+    public async Task<IActionResult> GetAllDonationHistory()
+    {
+        var response = await _donorService.GetDonationHistory();
 
         return Ok(response);
     }

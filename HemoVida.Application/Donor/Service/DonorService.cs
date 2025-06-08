@@ -37,6 +37,26 @@ public class DonorService : IDonorService
         return _mapper.Map<List<GetAvailableDonorsResponse>>(result);
     }
 
+    public async Task<GetDonationHistoryResponse> GetDonationHistory(string email)
+    {
+        var result = await _donorRepository.GetByEmailAsync(email);
+
+        if (result == null)
+            return null;
+
+        return _mapper.Map<GetDonationHistoryResponse>(result);
+    }
+
+    public async Task<List<GetDonationHistoryResponse>> GetDonationHistory()
+    {
+        var result = await _donorRepository.GetAllAsync();
+
+        if (result == null)
+            return null;
+
+        return _mapper.Map<List<GetDonationHistoryResponse>>(result);
+    }
+
     public async Task<CreateDonorResponse> RegisterDonor(CreateDonorRequest request)
     {
         var address = await _zipCodeService.GetAddress(request.ZipCode);

@@ -1,4 +1,5 @@
 ﻿using HemoVida.Application.Donor.Response;
+using HemoVida.Core.Entities;
 
 namespace HemoVida.Application.Donor.Profile;
 
@@ -13,5 +14,11 @@ public class DonorProfile : AutoMapper.Profile
             .ConvertUsing((src, dest, context) =>
                 src.Select(item => context.Mapper.Map<Core.Entities.Donor>(item)).ToList());
 
+        CreateMap<Core.Entities.Donation, DonationsResponse>();
+
+        CreateMap<Core.Entities.Donor, GetDonationHistoryResponse>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.User.Name))
+            .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
+            .ForMember(dest => dest.Donations, opt => opt.MapFrom(src => src.Donations));
     }
 }

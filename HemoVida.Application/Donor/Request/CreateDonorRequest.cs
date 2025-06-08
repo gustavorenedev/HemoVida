@@ -16,7 +16,6 @@ public class CreateDonorRequest
     public string RhFactor { get; set; }
     [Required(ErrorMessage = "Postal Code é obrigatório")]
     public string ZipCode { get; set; }
-    [Required(ErrorMessage = "Genêro é obrigatório")]
     public Gender Gender { get; set; }
 }
 
@@ -36,5 +35,11 @@ public class CreateDonorRequestValidator : AbstractValidator<CreateDonorRequest>
             .WithMessage("Peso é obrigatório.")
             .GreaterThan(50)
             .WithMessage("Você deve pesar acima de 50kg.");
+
+        RuleFor(x => x.Gender)
+            .IsInEnum()
+            .WithMessage("Gênero inválido.")
+            .NotEmpty()
+            .WithMessage("Gênero é obrigatório.");
     }
 }
