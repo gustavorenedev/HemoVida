@@ -1,6 +1,7 @@
 ﻿using HemoVida.Application.Donation.Request;
 using HemoVida.Application.Donation.Response;
 using HemoVida.Application.Donation.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -31,6 +32,7 @@ public class DonationController : ControllerBase
     /// <response code="201">Doação registrada com sucesso.</response>
     /// <response code="400">Erro de validação nos dados enviados.</response>
     [HttpPost("DonationRegister")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(DonationRegisterResponse), (int)HttpStatusCode.Created)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> DonationRegister(DonationRegisterRequest request)

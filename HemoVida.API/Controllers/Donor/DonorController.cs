@@ -1,6 +1,7 @@
 ﻿using HemoVida.Application.Donor.Request;
 using HemoVida.Application.Donor.Response;
 using HemoVida.Application.Donor.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -30,6 +31,7 @@ public class DonorController : ControllerBase
     /// <returns>Retorna os doadores disponíveis na clinica que ainda não doaram</returns>
     /// <response code="200">Doadores retornados com sucesso.</response>
     [HttpGet("GetAvailableDonors")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(List<GetAvailableDonorsResponse>), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
 
@@ -47,6 +49,7 @@ public class DonorController : ControllerBase
     /// <response code="201">Doador registrado com sucesso.</response>
     /// <response code="400">Erro de validação nos dados enviados.</response>
     [HttpPost("RegisterDonor")]
+    [Authorize(Roles = "User")]
     [ProducesResponseType(typeof(CreateDonorResponse), (int)HttpStatusCode.Created)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
 
@@ -82,6 +85,7 @@ public class DonorController : ControllerBase
     /// <returns>Retorna as doações feitas pelos doadores</returns>
     /// <response code="200">Doadores retornados com sucesso.</response>
     [HttpGet("GetAllDonationHistory")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(List<GetDonationHistoryResponse>), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
 

@@ -5,6 +5,8 @@ using HemoVida.Application.Donation.Service;
 using HemoVida.Application.Donation.Service.Interface;
 using HemoVida.Application.Donor.Service;
 using HemoVida.Application.Donor.Service.Interface;
+using HemoVida.Application.Report.Service;
+using HemoVida.Application.Report.Service.Interface;
 using HemoVida.Application.ZipCode.Service;
 using HemoVida.Application.ZipCode.Service.Interface;
 using HemoVida.Core.Interfaces.Repositories;
@@ -24,6 +26,7 @@ public static class DependencyInjection
         services.AddScoped<IDonorRepository, DonorRepository>();
         services.AddScoped<IDonationRepository, DonationRepository>();
         services.AddScoped<IStockRepository, StockRepository>();
+        services.AddScoped<IReportRepository, ReportRepository>();
 
         // Application Services
         services.AddScoped<IAuthService, AuthService>();
@@ -31,6 +34,7 @@ public static class DependencyInjection
         services.AddScoped<IRedisService, RedisService>();
         services.AddScoped<IDonationService, DonationService>();
         services.AddHttpClient<IZipCodeService, ZipCodeService>();
+        services.AddScoped<IReportService, ReportService>();
 
         // AutoMapper
         services.AddAutoMapper(typeof(AuthenticationProfile));
