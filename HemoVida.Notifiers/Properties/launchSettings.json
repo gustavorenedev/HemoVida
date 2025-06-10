@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HemoVida.Notifiers": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

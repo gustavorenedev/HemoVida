@@ -15,6 +15,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HemoVida.Test", "HemoVida.Test\HemoVida.Test.csproj", "{F8252D56-5835-45BE-BD0D-1538874F56BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HemoVida.Notifiers", "HemoVida.Notifiers\HemoVida.Notifiers.csproj", "{5B29160E-8800-4314-B581-A3F084264B9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F8252D56-5835-45BE-BD0D-1538874F56BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8252D56-5835-45BE-BD0D-1538874F56BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8252D56-5835-45BE-BD0D-1538874F56BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B29160E-8800-4314-B581-A3F084264B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B29160E-8800-4314-B581-A3F084264B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B29160E-8800-4314-B581-A3F084264B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B29160E-8800-4314-B581-A3F084264B9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

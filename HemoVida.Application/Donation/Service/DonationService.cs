@@ -1,6 +1,8 @@
-﻿using HemoVida.Application.Donation.Request;
+﻿using AutoMapper;
+using HemoVida.Application.Donation.Request;
 using HemoVida.Application.Donation.Response;
 using HemoVida.Application.Donation.Service.Interface;
+using HemoVida.Application.Publisher.Service.Interface;
 using HemoVida.Core.Interfaces.Repositories;
 
 namespace HemoVida.Application.Donation.Service;
@@ -10,12 +12,16 @@ public class DonationService : IDonationService
     private readonly IDonationRepository _donationRepository;
     private readonly IDonorRepository _donorRepository;
     private readonly IStockRepository _stockRepository;
+    private readonly IPublisherService _publisherService;
+    private readonly IMapper _mapper;
 
-    public DonationService(IDonationRepository donationRepository, IDonorRepository donorRepository, IStockRepository stockRepository)
+    public DonationService(IDonationRepository donationRepository, IDonorRepository donorRepository, IStockRepository stockRepository, IPublisherService publisherService, IMapper mapper)
     {
         _donationRepository = donationRepository;
         _donorRepository = donorRepository;
         _stockRepository = stockRepository;
+        _publisherService = publisherService;
+        _mapper = mapper;
     }
 
     public async Task<DonationRegisterResponse> DonationRegister(DonationRegisterRequest request)
@@ -50,7 +56,9 @@ public class DonationService : IDonationService
 
         await _stockRepository.UpdateStockAsync(donation);
 
-        // TO DO: Enviar um email formalizando a doação -- kafka
+        var donationRequest = _mapper.Map<DonationPublisherRequest>(donation);
+
+        await _publisherService.PublishAsync(donationRequest);
 
         return new DonationRegisterResponse
         {

@@ -32,7 +32,7 @@ public class DonationController : ControllerBase
     /// <response code="201">Doação registrada com sucesso.</response>
     /// <response code="400">Erro de validação nos dados enviados.</response>
     [HttpPost("DonationRegister")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [ProducesResponseType(typeof(DonationRegisterResponse), (int)HttpStatusCode.Created)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> DonationRegister(DonationRegisterRequest request)
