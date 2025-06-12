@@ -4,6 +4,7 @@ using HemoVida.Application.Donation.Response;
 using HemoVida.Application.Donation.Service.Interface;
 using HemoVida.Application.Publisher.Service.Interface;
 using HemoVida.Core.Interfaces.Repositories;
+using HemoVida.Core.Interfaces.Service;
 
 namespace HemoVida.Application.Donation.Service;
 
@@ -13,15 +14,17 @@ public class DonationService : IDonationService
     private readonly IDonorRepository _donorRepository;
     private readonly IStockRepository _stockRepository;
     private readonly IPublisherService _publisherService;
+    private readonly IRedisService _redisService;
     private readonly IMapper _mapper;
 
-    public DonationService(IDonationRepository donationRepository, IDonorRepository donorRepository, IStockRepository stockRepository, IPublisherService publisherService, IMapper mapper)
+    public DonationService(IDonationRepository donationRepository, IDonorRepository donorRepository, IStockRepository stockRepository, IPublisherService publisherService, IMapper mapper, IRedisService redisService)
     {
         _donationRepository = donationRepository;
         _donorRepository = donorRepository;
         _stockRepository = stockRepository;
         _publisherService = publisherService;
         _mapper = mapper;
+        _redisService = redisService;
     }
 
     public async Task<DonationRegisterResponse> DonationRegister(DonationRegisterRequest request)
@@ -54,6 +57,8 @@ public class DonationService : IDonationService
                 Message = "Erro ao registrar doação."
             };
 
+        await _redisService.RemoveDonorAsync(donation.DonorId);
+
         await _stockRepository.UpdateStockAsync(donation);
 
         var donationRequest = _mapper.Map<DonationPublisherRequest>(donation);
@@ -62,7 +67,7 @@ public class DonationService : IDonationService
 
         return new DonationRegisterResponse
         {
-            Message = "Doação registrada com sucesso!"
+            Message = "Sua doação foi registrada com sucesso no sistema."
         };
     }
 

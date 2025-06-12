@@ -50,17 +50,15 @@ public class DonorController : ControllerBase
     /// <response code="400">Erro de validação nos dados enviados.</response>
     [HttpPost("RegisterDonor")]
     [Authorize(Roles = "User")]
-    [ProducesResponseType(typeof(CreateDonorResponse), (int)HttpStatusCode.Created)]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-
+    [ProducesResponseType(typeof(CreateDonorResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromBody] CreateDonorRequest donorRequest)
     {
         if (!ModelState.IsValid)
             return BadRequest("Dados inválidos.");
 
         var response = await _donorService.RegisterDonor(donorRequest);
-
-        return Ok(response.Message);
+        return Ok(response);
     }
 
     /// <summary>

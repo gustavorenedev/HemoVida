@@ -69,7 +69,7 @@ public class EmailService : IEmailService
                     overflow: hidden;
                 }}
                 .email-header {{
-                    background-color: #0073e6;
+                    background-color: #E53935;
                     color: #ffffff;
                     text-align: center;
                     padding: 20px;
@@ -87,7 +87,7 @@ public class EmailService : IEmailService
                     line-height: 1.6;
                 }}
                 .email-body strong {{
-                    color: #0073e6;
+                    color: #E53935;
                 }}
                 .email-footer {{
                     text-align: center;
@@ -114,7 +114,7 @@ public class EmailService : IEmailService
                         <li><strong>Quantidade Doada:</strong> {donation.MlQuantity} ml</li>
                         <li><strong>Data da Doação:</strong> {donation.DonationDate:dd/MM/yyyy}</li>
                     </ul>
-                    <p>Sua doação pode salvar até 4 vidas. 💙</p>
+                    <p>Sua doação pode salvar até 3 vidas. 💙</p>
                     <p>Caso tenha dúvidas ou queira acompanhar futuras campanhas, entre em contato conosco.</p>
                 </div>
                 <div class='email-footer'>

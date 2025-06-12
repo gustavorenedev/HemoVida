@@ -93,6 +93,6 @@ public class DonorService : IDonorService
 
         await _redisService.AddAvailableDonorAsync(newDonor);
 
-        return new CreateDonorResponse { Message = "Doador cadastrado com sucesso. Aguarde a enfermeira chamar" };
+        return new CreateDonorResponse { Message = "Seu cadastro foi realizado com sucesso. Aguarde a enfermeira chamar" };
     }
 }

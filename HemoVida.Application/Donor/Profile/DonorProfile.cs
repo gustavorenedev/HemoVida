@@ -1,5 +1,4 @@
 ﻿using HemoVida.Application.Donor.Response;
-using HemoVida.Core.Entities;
 
 namespace HemoVida.Application.Donor.Profile;
 
@@ -8,7 +7,10 @@ public class DonorProfile : AutoMapper.Profile
     public DonorProfile()
     {
         CreateMap<Core.Entities.Donor, GetAvailableDonorsResponse>()
-            .AfterMap((src, dest) => dest.Name = src.User.Name);
+            .AfterMap((src, dest) => {
+                dest.Name = src.User.Name;
+                dest.Email = src.User.Email;
+            });
 
         CreateMap<List<GetAvailableDonorsResponse>, List<Core.Entities.Donor>>()
             .ConvertUsing((src, dest, context) =>
