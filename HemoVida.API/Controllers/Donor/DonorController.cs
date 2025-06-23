@@ -93,4 +93,20 @@ public class DonorController : ControllerBase
 
         return Ok(response);
     }
+
+    /// <summary>
+    /// Endpoint para mostrar se ja é um doador.
+    /// </summary>
+    /// <returns>Retorna se ja é um doador</returns>
+    /// <response code="200">Informações retornadas com sucesso.</response>
+    [HttpGet("GetDonor")]
+    [Authorize(Roles = "User")]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+    public async Task<IActionResult> GetDonor(string email)
+    {
+        var response = await _donorService.GetDonorByEmail(email);
+
+        return Ok(response);
+    }
 }

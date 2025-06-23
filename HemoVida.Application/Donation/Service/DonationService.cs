@@ -2,6 +2,7 @@
 using HemoVida.Application.Donation.Request;
 using HemoVida.Application.Donation.Response;
 using HemoVida.Application.Donation.Service.Interface;
+using HemoVida.Application.Donor.Response;
 using HemoVida.Application.Publisher.Service.Interface;
 using HemoVida.Core.Interfaces.Repositories;
 using HemoVida.Core.Interfaces.Service;
@@ -37,9 +38,12 @@ public class DonationService : IDonationService
 
         var validationResult = ValidateDonation(donor);
 
-        if (validationResult != null && validationResult.Message != "Você ainda não doou.")
+        if (validationResult != null && validationResult != "Você ainda não doou.")
         {
-            return validationResult;
+            return new DonationRegisterResponse
+            {
+                Message = validationResult
+            };
         }
 
         var donation = new Core.Entities.Donation
@@ -71,42 +75,53 @@ public class DonationService : IDonationService
         };
     }
 
-    private DonationRegisterResponse ValidateDonation(Core.Entities.Donor request)
+    public async Task<DonationRequestedResponse> DonationRequested(string email)
+    {
+        var donor = await _donorRepository.GetByEmailAsync(email);
+        if (donor == null) return new DonationRequestedResponse
+        {
+            Message = "Doador não encontrado."
+        };
+
+        var validationResult = ValidateDonation(donor);
+
+        if (validationResult != null && validationResult != "Você ainda não doou.")
+        {
+            return new DonationRequestedResponse
+            {
+                Message = validationResult
+            };
+        }
+
+        await _redisService.AddAvailableDonorAsync(donor);
+
+        return new DonationRequestedResponse { Message = "Aguarde a enfermeira chamar" };
+    }
+
+    private string ValidateDonation(Core.Entities.Donor request)
     {
         var age = CalculateAge(request.BirthDate);
 
         if (age < 18)
         {
-            return new DonationRegisterResponse
-            {
-                Message = "Menores de idade não podem doar."
-            };
+            return "Menores de idade não podem doar.";
         }
 
         var lastDonation = request.Donations?.OrderByDescending(x => x.DonationDate).FirstOrDefault();
 
-        if (lastDonation == null) return new DonationRegisterResponse
-        {
-            Message = "Você ainda não doou."
-        };
+        if (lastDonation == null) return "Você ainda não doou.";
 
         var nextAllowedDonationDateWoman = lastDonation.DonationDate.AddDays(90);
         var nextAllowedDonationDateMan = lastDonation.DonationDate.AddDays(60);
 
         if (request.Gender == Core.Enum.Gender.Woman && DateTime.Now < nextAllowedDonationDateWoman)
         {
-            return new DonationRegisterResponse
-            {
-                Message = "Mulheres só podem doar de 90 em 90 dias."
-            };
+            return "Mulheres só podem doar de 90 em 90 dias.";
         }
 
         if (request.Gender == Core.Enum.Gender.Man && DateTime.Now < nextAllowedDonationDateMan)
         {
-            return new DonationRegisterResponse
-            {
-                Message = "Homens só podem doar de 60 em 60 dias."
-            };
+            return "Homens só podem doar de 60 em 60 dias.";
         }
 
         return null;

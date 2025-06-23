@@ -9,4 +9,5 @@ public interface IDonorService
     Task<List<GetAvailableDonorsResponse>> GetAvailableDonors();
     Task<GetDonationHistoryResponse> GetDonationHistory(string email);
     Task<List<GetDonationHistoryResponse>> GetDonationHistory();
+    Task<bool> GetDonorByEmail(string email);
 }
