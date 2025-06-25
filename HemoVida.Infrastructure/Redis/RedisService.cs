@@ -29,6 +29,20 @@ public class RedisService : IRedisService
         await _db.StringSetAsync(key, json, TimeSpan.FromMinutes(30));
     }
 
+    public async Task<Donor?> GetAvailableDonorByIdAsync(int donorId)
+    {
+        string key = $"donor:{donorId}";
+        var json = await _db.StringGetAsync(key);
+
+        if (!json.IsNullOrEmpty)
+        {
+            var donor = JsonSerializer.Deserialize<Donor>(json);
+            return donor;
+        }
+
+        return null;
+    }
+
     public async Task<List<Donor>> GetAvailableDonorsAsync()
     {
         var server = _db.Multiplexer.GetServer(_db.Multiplexer.GetEndPoints()[0]);

@@ -85,6 +85,16 @@ public class DonationService : IDonationService
 
         var validationResult = ValidateDonation(donor);
 
+        var userIsQueue = await _redisService.GetAvailableDonorByIdAsync(donor.Id);
+
+        if (userIsQueue != null)
+        {
+            return new DonationRequestedResponse
+            {
+                Message = "Você já está na fila de doação."
+            };
+        }
+
         if (validationResult != null && validationResult != "Você ainda não doou.")
         {
             return new DonationRequestedResponse
